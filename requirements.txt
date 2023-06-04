@@ -1,2 +1,3 @@
 lxc
 fastapi
+uvicorn
