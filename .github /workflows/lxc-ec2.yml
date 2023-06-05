@@ -18,7 +18,7 @@ jobs:
       - name: Deploy to lxc instance 
         uses: easingthemes/ssh-deploy@v2.1.5
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY2 }}
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.TARGET_DIR }}
