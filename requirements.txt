@@ -1,3 +1,5 @@
 lxc
 fastapi
 uvicorn
+jinja2
+Pygments

@@ -1,17 +1,22 @@
 from typing import Annotated, Union
-from fastapi import FastAPI, Body, BackgroundTasks, HTTPException
+from fastapi import FastAPI, Body, BackgroundTasks, HTTPException, Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from ipaddress import IPv4Address, IPv4Network
+
+from pathlib import Path
 
 import lxc
 import sys
 
-# Very first look at cgroup / lxc ns container / automation
-# pydantic models for typing/structure
-# swagger for fe / testing / faster dev
-# super skinny stack, ubuntu/apt only
 
-app = FastAPI()
+BASE_PATH = Path(__file__).resolve().parent
+TEMPLATES = Jinja2Templates(directory=str(BASE_PATH / "templates"))
+
+app = FastAPI(title="lxc fastapi LXC CRUD")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # LXC structures
 
@@ -36,14 +41,13 @@ class Network(BaseModel):
     default_gw: IPv4Address
 
 
-# hack - this is psuedo persist, that dies on stop
+# hack - this is psuedo persist, for dev use and single node only
 containers: dict[str, Container] = {}
 
+
 # route helper methods
-
-
 def build_container(ctr: Container):
-    # Create LXC container, -- TODO, Background this task
+    # Create LXC container in backkground
     try:
         _c = lxc.Container(ctr.name)
         _c.create(
@@ -63,24 +67,48 @@ def raise_409_existbool(container_name: str, exists: bool = False):
     )
 
 
-# routes
-# # todo - wrap under OpenID AuthN GW,
-# # and filter with decorator to condider mutli-tennancy/object owners AuthZ
+def give_container_info(
+    container: object, name: str, _ret: dict, short: bool = True
+) -> dict:
+    _ret[name] = {}
+    _ret[name]["name"] = name
+    _ret[name]["interfaces"] = container.get_interfaces()
+    _ret[name]["ips"] = container.get_ips()
+    _ret[name]["state"] = container.state
+    if short:
+        return _ret
 
-@app.get("/")
+    _ret[name]["keys"] = container.get_keys()
+    _ret[name]["console_fd"] = container.console_getfd()
+    return _ret
+
+
+# routes
+# # todo - nb this is not under OpenID AuthN GW,
+# # there are no filters considering mutli-tennancy/object owners AuthZ
+
+
+@app.get("/list_containers/")
 async def list_containers():
     _ret: dict = {}
 
     for i in lxc.list_containers():
         _c = lxc.Container(name=i)
+        _ret = give_container_info(container=_c, name=i, _ret=_ret, short=True)
 
-        _ret[i] = {}
-        _ret[i]["name"] = i
-        _ret[i]["interfaces"] = _c.get_interfaces()
-        _ret[i]["ips"] = _c.get_ips
-        _ret[i]["state"] = _c.state
+    return {f"message": "Returning all containers on host",
+            "data": _ret}           
 
-    return {"message": f"Contianers in namespace discovered", "data": _ret}
+@app.get("/get-container/{container_name}/")
+async def get_container(container_name: str):
+    container_name: str
+    # give all about a containe
+    if not lxc.Container(name=container_name):
+        raise_409_existbool(container_name=container_name, exists=False)
+    _c = lxc.Container(name=container_name)
+    _ret = give_container_info(container=_c, name=container_name, _ret={}, short=False)
+
+    return {f"message": " Success get {container_name}", "data": _ret}
 
 
 @app.post("/create-container/")
@@ -115,21 +143,31 @@ async def create_container(
 
 
 @app.post("/start/")  # todo
-async def destroy_container(container_name: str):
+async def start_container(container_name: str):
     if not container_name in lxc.list_containers():
         raise_409_existbool(container_name=container_name, exists=False)
+
+    if lxc.Container(name=container_name).state == "RUNNING":
+        raise HTTPException(status_code=409, detail=f"Container already in the Running state")
+
     if not lxc.Container(name=container_name).start():
-        HTTPException(status_code=409, detail=f"Container failed to start")
+        raise HTTPException(status_code=409, detail=f"Container failed to start")
+
     return {"message": f"Starting {container_name}", "data": True}
 
 
 @app.post("/stop/")  # todo
-async def destroy_container(container_name: str):
+async def stop_container(container_name: str):
     if not container_name in lxc.list_containers():
         raise_409_existbool(container_name=container_name, exists=False)
+
+    if lxc.Container(name=container_name).state == "STOPPED":
+        raise HTTPException(status_code=409, detail=f"Container is already in the Stopped state")
+
     if not lxc.Container(name=container_name).stop():
-        HTTPException(status_code=409, detail=f"Container failed to stop")
-    return {"message": f"Stoping {container_name}", "data": True}
+        raise HTTPException(status_code=409, detail=f"Container failed to stop")
+
+    return {"message": f"Stopping {container_name}", "data": True}
 
 
 @app.post("/destroy/")  # todo
@@ -141,7 +179,7 @@ async def destroy_container(container_name: str):
             lxc.Container(name=container_name).stop()
     finally:
         if not lxc.Container(name=container_name).destroy():
-            HTTPException(status_code=409, detail=f"Container failed to destroy")
+            raise HTTPException(status_code=409, detail=f"Container failed to destroy")
     return {"message": f"Destroyed {container_name}", "data": True}
 
 
@@ -161,7 +199,24 @@ async def install_apps(container_name: str, toinstall: ToInstall):
 
 
 @app.post("/addnetwork/")  # todo
-async def clone_container(container_name: str, network: Network):
+async def add_network(container_name: str, network: Network):
     if not container_name in lxc.list_containers():
         raise_409_existbool(container_name=container_name, exists=False)
     pass
+
+# HTML landing page
+@app.get("/", response_class=HTMLResponse)  # template landing page
+async def html_frontpage(request: Request):
+    _ret: dict = {}
+
+    for i in lxc.list_containers():
+        _c = lxc.Container(name=i)
+        _ret = give_container_info(container=_c, name=i, _ret=_ret, short=True)
+
+    return TEMPLATES.TemplateResponse(
+        "index.html",
+        {
+            "request": request,
+            "data": _ret,
+        },
+    )
