@@ -6,6 +6,7 @@ from platform_models.models import Container
 
 
 from os import sys
+from pathlib import Path
 
 
 class UseCase:
@@ -44,6 +45,10 @@ class UseCase:
 
     @abstractmethod
     def destroy_container(self):
+        pass
+
+    @abstractmethod
+    def list_files(self):
         pass
 
 
@@ -143,3 +148,11 @@ class PlatformUseCase(UseCase):
         finally:
             if not lxc.Container(name=container_name).destroy():
                 raise HTTPException(status_code=409, detail=f"Container failed to destroy")
+            
+    def list_files(self, request: Request):
+        # SRC code explorer for interview
+        files = [f.name for f in Path("static").iterdir() if f.is_file()]
+        file_paths = sorted([f"/static/{f}" for f in files])
+        return file_paths
+
+

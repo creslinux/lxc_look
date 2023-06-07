@@ -1,7 +1,8 @@
 import uvicorn
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 
-from platform_controller.platform_contoller  import AppController
+from platform_controller.platform_controller  import AppController
 from platform_usecases.app_usecases import UseCase, PlatformUseCase
 
 
@@ -12,6 +13,7 @@ def startup(use_case: UseCase = PlatformUseCase()):
 
 
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
 AppController(app, PlatformUseCase())
 
 def startup(use_case: UseCase = PlatformUseCase()):
