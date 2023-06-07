@@ -96,8 +96,8 @@ async def list_containers():
         _c = lxc.Container(name=i)
         _ret = give_container_info(container=_c, name=i, _ret=_ret, short=True)
 
-    return {f"message": "Returning all containers on host",
-            "data": _ret}           
+    return {f"message": "Returning all containers on host", "data": _ret}
+
 
 @app.get("/get-container/{container_name}/")
 async def get_container(container_name: str):
@@ -142,13 +142,15 @@ async def create_container(
     return {"message": "Sent for build", "container": container}
 
 
-@app.post("/start/")  # todo
+@app.post("/start/") 
 async def start_container(container_name: str):
     if not container_name in lxc.list_containers():
         raise_409_existbool(container_name=container_name, exists=False)
 
     if lxc.Container(name=container_name).state == "RUNNING":
-        raise HTTPException(status_code=409, detail=f"Container already in the Running state")
+        raise HTTPException(
+            status_code=409, detail=f"Container already in the Running state"
+        )
 
     if not lxc.Container(name=container_name).start():
         raise HTTPException(status_code=409, detail=f"Container failed to start")
@@ -156,13 +158,15 @@ async def start_container(container_name: str):
     return {"message": f"Starting {container_name}", "data": True}
 
 
-@app.post("/stop/")  # todo
+@app.post("/stop/")  
 async def stop_container(container_name: str):
     if not container_name in lxc.list_containers():
         raise_409_existbool(container_name=container_name, exists=False)
 
     if lxc.Container(name=container_name).state == "STOPPED":
-        raise HTTPException(status_code=409, detail=f"Container is already in the Stopped state")
+        raise HTTPException(
+            status_code=409, detail=f"Container is already in the Stopped state"
+        )
 
     if not lxc.Container(name=container_name).stop():
         raise HTTPException(status_code=409, detail=f"Container failed to stop")
@@ -170,7 +174,7 @@ async def stop_container(container_name: str):
     return {"message": f"Stopping {container_name}", "data": True}
 
 
-@app.post("/destroy/")  # todo
+@app.post("/destroy/")  
 async def destroy_container(container_name: str):
     if not container_name in lxc.list_containers():
         raise_409_existbool(container_name=container_name, exists=False)
@@ -203,6 +207,7 @@ async def add_network(container_name: str, network: Network):
     if not container_name in lxc.list_containers():
         raise_409_existbool(container_name=container_name, exists=False)
     pass
+
 
 # HTML landing page
 @app.get("/", response_class=HTMLResponse)  # template landing page

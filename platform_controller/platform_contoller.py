@@ -1,0 +1,123 @@
+from typing import Annotated, Union, Optional
+from fastapi import FastAPI, Body, BackgroundTasks, HTTPException, Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel
+from ipaddress import IPv4Address, IPv4Network
+
+from pathlib import Path
+from abc import abstractmethod
+
+import lxc
+import sys
+import uvicorn
+
+
+from platform_usecases.app_usecases import UseCase
+from platform_models.models import (
+    BASE_PATH,
+    TEMPLATES,
+    Container,
+    ToInstall,
+    Network,
+    containers,
+)
+
+
+class AppController:
+    def __init__(self, app: FastAPI, use_case: UseCase):
+        # Return list of lxc contianers, and their state
+        @app.get("/list_containers/")
+        async def list_containers():
+            _ret = use_case.list_containers()
+            from pprint import pprint
+            pprint(_ret)
+            return {f"message": "Returning all containers on host", "data": _ret}
+
+        # Query more detail on a named lxc instance
+        @app.get("/get-container/{container_name}/")
+        async def get_container(container_name: str):
+            _ret = use_case.get_container(container_name=container_name)
+            return {f"message": " Success get {container_name}", "data": _ret}
+
+        @app.post("/create-container/")
+        async def create_container(
+            container: Annotated[
+                Container,
+                Body(
+                    examples={
+                        "normal": {
+                            "summary": "Example of a normal container",
+                            "description": "A **normal** container payload correctly.",
+                            "value": {
+                                "name": "Foo",
+                                "dist": "ubuntu",
+                                "release": "lunar",
+                                "arch": "amd64",
+                            },
+                        },
+                    },
+                ),
+            ],
+            background_tasks: BackgroundTasks,
+        ):
+            if container.name in containers or use_case.container_exists(container_name=container.name):
+                use_case.raise_409_existbool(container_name=container.name, exists=True)
+            # take an optimistic record, prevent conflicting builds
+            # build as a background task
+            containers.update({container.name: container})
+            background_tasks.add_task(use_case.build_container, ctr=container)
+            return {"message": "Sent for build", "container": container}
+
+        @app.post("/start/") 
+        async def start_container(container_name: str):
+            use_case.start_container(container_name=container_name)
+            return {"message": f"Starting {container_name}", "data": True}
+
+        
+        @app.post("/stop/")
+        async def stop_container(container_name: str):
+            use_case.stop_container(container_name=container_name)
+            return {"message": f"Stopping {container_name}", "data": True}
+
+        
+        @app.post("/destroy/") 
+        async def destroy_container(container_name: str):
+            use_case.destroy_container(container_name=container_name)
+            return {"message": f"Destroyed {container_name}", "data": True}
+        
+
+        # HTML landing page - jinja2 templating
+        @app.get("/", response_class=HTMLResponse)  # template landing page
+        async def html_frontpage(request: Request):
+            _ret = use_case.list_containers()
+    
+            return TEMPLATES.TemplateResponse(
+                "index.html",
+                {
+                    "request": request,
+                    "data": _ret,
+                },
+            )
+        
+        # TODO - skeletons to complete
+        @app.post("/clone/")  # todo
+        async def clone_container(container_name: str, target: Container):
+            if not container_name in lxc.list_containers():
+                use_case.raise_409_existbool(container_name=container_name, exists=False)
+            pass
+
+
+        @app.post("/install-apps/")  # todo
+        async def install_apps(container_name: str, toinstall: ToInstall):
+            if not container_name in lxc.list_containers():
+                use_case.raise_409_existbool(container_name=container_name, exists=False)
+            pass
+
+
+        @app.post("/addnetwork/")  # todo
+        async def add_network(container_name: str, network: Network):
+            if not container_name in lxc.list_containers():
+                use_case.raise_409_existbool(container_name=container_name, exists=False)
+            pass
