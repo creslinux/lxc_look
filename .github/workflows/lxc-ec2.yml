@@ -22,3 +22,16 @@ jobs:
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.TARGET_DIR }}
+        
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST_DNS }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY2 }}
+          port: 22
+          script: |
+            cd ${{ secrets.TARGET_DIR }}
+            bash s.sh
+            nohup uvicorn be:app --host 0.0.0.0 --port 8000 &
+            nohup uvicorn be:app --host 0.0.0.0 --port 8090 &
