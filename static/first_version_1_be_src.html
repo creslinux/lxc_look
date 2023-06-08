@@ -16,88 +16,89 @@ Copyright 2006-2023 by the Pygments team.
 Licensed under the BSD license, see LICENSE for details.
 */
 pre { line-height: 125%; }
-td.linenos .normal { color: #37474F; background-color: #263238; padding-left: 5px; padding-right: 5px; }
-span.linenos { color: #37474F; background-color: #263238; padding-left: 5px; padding-right: 5px; }
-td.linenos .special { color: #607A86; background-color: #263238; padding-left: 5px; padding-right: 5px; }
-span.linenos.special { color: #607A86; background-color: #263238; padding-left: 5px; padding-right: 5px; }
-body .hll { background-color: #2C3B41 }
-body { background: #263238; color: #EEFFFF }
-body .c { color: #546E7A; font-style: italic } /* Comment */
-body .err { color: #FF5370 } /* Error */
-body .esc { color: #89DDFF } /* Escape */
-body .g { color: #EEFFFF } /* Generic */
-body .k { color: #BB80B3 } /* Keyword */
-body .l { color: #C3E88D } /* Literal */
-body .n { color: #EEFFFF } /* Name */
-body .o { color: #89DDFF } /* Operator */
-body .p { color: #89DDFF } /* Punctuation */
-body .ch { color: #546E7A; font-style: italic } /* Comment.Hashbang */
-body .cm { color: #546E7A; font-style: italic } /* Comment.Multiline */
-body .cp { color: #546E7A; font-style: italic } /* Comment.Preproc */
-body .cpf { color: #546E7A; font-style: italic } /* Comment.PreprocFile */
-body .c1 { color: #546E7A; font-style: italic } /* Comment.Single */
-body .cs { color: #546E7A; font-style: italic } /* Comment.Special */
-body .gd { color: #FF5370 } /* Generic.Deleted */
-body .ge { color: #89DDFF } /* Generic.Emph */
-body .gr { color: #FF5370 } /* Generic.Error */
-body .gh { color: #C3E88D } /* Generic.Heading */
-body .gi { color: #C3E88D } /* Generic.Inserted */
-body .go { color: #546E7A } /* Generic.Output */
-body .gp { color: #FFCB6B } /* Generic.Prompt */
-body .gs { color: #FF5370 } /* Generic.Strong */
-body .gu { color: #89DDFF } /* Generic.Subheading */
-body .gt { color: #FF5370 } /* Generic.Traceback */
-body .kc { color: #89DDFF } /* Keyword.Constant */
-body .kd { color: #BB80B3 } /* Keyword.Declaration */
-body .kn { color: #89DDFF; font-style: italic } /* Keyword.Namespace */
-body .kp { color: #89DDFF } /* Keyword.Pseudo */
-body .kr { color: #BB80B3 } /* Keyword.Reserved */
-body .kt { color: #BB80B3 } /* Keyword.Type */
-body .ld { color: #C3E88D } /* Literal.Date */
-body .m { color: #F78C6C } /* Literal.Number */
-body .s { color: #C3E88D } /* Literal.String */
-body .na { color: #BB80B3 } /* Name.Attribute */
-body .nb { color: #82AAFF } /* Name.Builtin */
-body .nc { color: #FFCB6B } /* Name.Class */
-body .no { color: #EEFFFF } /* Name.Constant */
-body .nd { color: #82AAFF } /* Name.Decorator */
-body .ni { color: #89DDFF } /* Name.Entity */
-body .ne { color: #FFCB6B } /* Name.Exception */
-body .nf { color: #82AAFF } /* Name.Function */
-body .nl { color: #82AAFF } /* Name.Label */
-body .nn { color: #FFCB6B } /* Name.Namespace */
-body .nx { color: #EEFFFF } /* Name.Other */
-body .py { color: #FFCB6B } /* Name.Property */
-body .nt { color: #FF5370 } /* Name.Tag */
-body .nv { color: #89DDFF } /* Name.Variable */
-body .ow { color: #89DDFF; font-style: italic } /* Operator.Word */
-body .pm { color: #89DDFF } /* Punctuation.Marker */
-body .w { color: #EEFFFF } /* Text.Whitespace */
-body .mb { color: #F78C6C } /* Literal.Number.Bin */
-body .mf { color: #F78C6C } /* Literal.Number.Float */
-body .mh { color: #F78C6C } /* Literal.Number.Hex */
-body .mi { color: #F78C6C } /* Literal.Number.Integer */
-body .mo { color: #F78C6C } /* Literal.Number.Oct */
-body .sa { color: #BB80B3 } /* Literal.String.Affix */
-body .sb { color: #C3E88D } /* Literal.String.Backtick */
-body .sc { color: #C3E88D } /* Literal.String.Char */
-body .dl { color: #EEFFFF } /* Literal.String.Delimiter */
-body .sd { color: #546E7A; font-style: italic } /* Literal.String.Doc */
-body .s2 { color: #C3E88D } /* Literal.String.Double */
-body .se { color: #EEFFFF } /* Literal.String.Escape */
-body .sh { color: #C3E88D } /* Literal.String.Heredoc */
-body .si { color: #89DDFF } /* Literal.String.Interpol */
-body .sx { color: #C3E88D } /* Literal.String.Other */
-body .sr { color: #89DDFF } /* Literal.String.Regex */
-body .s1 { color: #C3E88D } /* Literal.String.Single */
-body .ss { color: #89DDFF } /* Literal.String.Symbol */
-body .bp { color: #89DDFF } /* Name.Builtin.Pseudo */
-body .fm { color: #82AAFF } /* Name.Function.Magic */
-body .vc { color: #89DDFF } /* Name.Variable.Class */
-body .vg { color: #89DDFF } /* Name.Variable.Global */
-body .vi { color: #89DDFF } /* Name.Variable.Instance */
-body .vm { color: #82AAFF } /* Name.Variable.Magic */
-body .il { color: #F78C6C } /* Literal.Number.Integer.Long */
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+body .hll { background-color: #49483e }
+body { background: #272822; color: #f8f8f2 }
+body .c { color: #75715e } /* Comment */
+body .err { color: #960050; background-color: #1e0010 } /* Error */
+body .esc { color: #f8f8f2 } /* Escape */
+body .g { color: #f8f8f2 } /* Generic */
+body .k { color: #66d9ef } /* Keyword */
+body .l { color: #ae81ff } /* Literal */
+body .n { color: #f8f8f2 } /* Name */
+body .o { color: #f92672 } /* Operator */
+body .x { color: #f8f8f2 } /* Other */
+body .p { color: #f8f8f2 } /* Punctuation */
+body .ch { color: #75715e } /* Comment.Hashbang */
+body .cm { color: #75715e } /* Comment.Multiline */
+body .cp { color: #75715e } /* Comment.Preproc */
+body .cpf { color: #75715e } /* Comment.PreprocFile */
+body .c1 { color: #75715e } /* Comment.Single */
+body .cs { color: #75715e } /* Comment.Special */
+body .gd { color: #f92672 } /* Generic.Deleted */
+body .ge { color: #f8f8f2; font-style: italic } /* Generic.Emph */
+body .gr { color: #f8f8f2 } /* Generic.Error */
+body .gh { color: #f8f8f2 } /* Generic.Heading */
+body .gi { color: #a6e22e } /* Generic.Inserted */
+body .go { color: #66d9ef } /* Generic.Output */
+body .gp { color: #f92672; font-weight: bold } /* Generic.Prompt */
+body .gs { color: #f8f8f2; font-weight: bold } /* Generic.Strong */
+body .gu { color: #75715e } /* Generic.Subheading */
+body .gt { color: #f8f8f2 } /* Generic.Traceback */
+body .kc { color: #66d9ef } /* Keyword.Constant */
+body .kd { color: #66d9ef } /* Keyword.Declaration */
+body .kn { color: #f92672 } /* Keyword.Namespace */
+body .kp { color: #66d9ef } /* Keyword.Pseudo */
+body .kr { color: #66d9ef } /* Keyword.Reserved */
+body .kt { color: #66d9ef } /* Keyword.Type */
+body .ld { color: #e6db74 } /* Literal.Date */
+body .m { color: #ae81ff } /* Literal.Number */
+body .s { color: #e6db74 } /* Literal.String */
+body .na { color: #a6e22e } /* Name.Attribute */
+body .nb { color: #f8f8f2 } /* Name.Builtin */
+body .nc { color: #a6e22e } /* Name.Class */
+body .no { color: #66d9ef } /* Name.Constant */
+body .nd { color: #a6e22e } /* Name.Decorator */
+body .ni { color: #f8f8f2 } /* Name.Entity */
+body .ne { color: #a6e22e } /* Name.Exception */
+body .nf { color: #a6e22e } /* Name.Function */
+body .nl { color: #f8f8f2 } /* Name.Label */
+body .nn { color: #f8f8f2 } /* Name.Namespace */
+body .nx { color: #a6e22e } /* Name.Other */
+body .py { color: #f8f8f2 } /* Name.Property */
+body .nt { color: #f92672 } /* Name.Tag */
+body .nv { color: #f8f8f2 } /* Name.Variable */
+body .ow { color: #f92672 } /* Operator.Word */
+body .pm { color: #f8f8f2 } /* Punctuation.Marker */
+body .w { color: #f8f8f2 } /* Text.Whitespace */
+body .mb { color: #ae81ff } /* Literal.Number.Bin */
+body .mf { color: #ae81ff } /* Literal.Number.Float */
+body .mh { color: #ae81ff } /* Literal.Number.Hex */
+body .mi { color: #ae81ff } /* Literal.Number.Integer */
+body .mo { color: #ae81ff } /* Literal.Number.Oct */
+body .sa { color: #e6db74 } /* Literal.String.Affix */
+body .sb { color: #e6db74 } /* Literal.String.Backtick */
+body .sc { color: #e6db74 } /* Literal.String.Char */
+body .dl { color: #e6db74 } /* Literal.String.Delimiter */
+body .sd { color: #e6db74 } /* Literal.String.Doc */
+body .s2 { color: #e6db74 } /* Literal.String.Double */
+body .se { color: #ae81ff } /* Literal.String.Escape */
+body .sh { color: #e6db74 } /* Literal.String.Heredoc */
+body .si { color: #e6db74 } /* Literal.String.Interpol */
+body .sx { color: #e6db74 } /* Literal.String.Other */
+body .sr { color: #e6db74 } /* Literal.String.Regex */
+body .s1 { color: #e6db74 } /* Literal.String.Single */
+body .ss { color: #e6db74 } /* Literal.String.Symbol */
+body .bp { color: #f8f8f2 } /* Name.Builtin.Pseudo */
+body .fm { color: #a6e22e } /* Name.Function.Magic */
+body .vc { color: #f8f8f2 } /* Name.Variable.Class */
+body .vg { color: #f8f8f2 } /* Name.Variable.Global */
+body .vi { color: #f8f8f2 } /* Name.Variable.Instance */
+body .vm { color: #f8f8f2 } /* Name.Variable.Magic */
+body .il { color: #ae81ff } /* Literal.Number.Integer.Long */
 
   </style>
 </head>
@@ -147,12 +148,11 @@ body .il { color: #F78C6C } /* Literal.Number.Integer.Long */
     <span class="n">default_gw</span><span class="p">:</span> <span class="n">IPv4Address</span>
 
 
-<span class="c1"># hack - this is psuedo persist, that dies on stop</span>
+<span class="c1"># hack - this is psuedo persist, for dev use and single node only</span>
 <span class="n">containers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
+
 <span class="c1"># route helper methods</span>
-
-
 <span class="k">def</span> <span class="nf">build_container</span><span class="p">(</span><span class="n">ctr</span><span class="p">:</span> <span class="n">Container</span><span class="p">):</span>
     <span class="c1"># Create LXC container in backkground</span>
     <span class="k">try</span><span class="p">:</span>
@@ -203,8 +203,8 @@ body .il { color: #F78C6C } /* Literal.Number.Integer.Long */
         <span class="n">_c</span> <span class="o">=</span> <span class="n">lxc</span><span class="o">.</span><span class="n">Container</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
         <span class="n">_ret</span> <span class="o">=</span> <span class="n">give_container_info</span><span class="p">(</span><span class="n">container</span><span class="o">=</span><span class="n">_c</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">_ret</span><span class="o">=</span><span class="n">_ret</span><span class="p">,</span> <span class="n">short</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="p">{</span><span class="sa">f</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Returning all containers on host&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">_ret</span><span class="p">}</span>           
+    <span class="k">return</span> <span class="p">{</span><span class="sa">f</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Returning all containers on host&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">_ret</span><span class="p">}</span>
+
 
 <span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/get-container/</span><span class="si">{container_name}</span><span class="s2">/&quot;</span><span class="p">)</span>
 <span class="k">async</span> <span class="k">def</span> <span class="nf">get_container</span><span class="p">(</span><span class="n">container_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -249,13 +249,15 @@ body .il { color: #F78C6C } /* Literal.Number.Integer.Long */
     <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Sent for build&quot;</span><span class="p">,</span> <span class="s2">&quot;container&quot;</span><span class="p">:</span> <span class="n">container</span><span class="p">}</span>
 
 
-<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/start/&quot;</span><span class="p">)</span>  <span class="c1"># todo</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/start/&quot;</span><span class="p">)</span> 
 <span class="k">async</span> <span class="k">def</span> <span class="nf">start_container</span><span class="p">(</span><span class="n">container_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">container_name</span> <span class="ow">in</span> <span class="n">lxc</span><span class="o">.</span><span class="n">list_containers</span><span class="p">():</span>
         <span class="n">raise_409_existbool</span><span class="p">(</span><span class="n">container_name</span><span class="o">=</span><span class="n">container_name</span><span class="p">,</span> <span class="n">exists</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">lxc</span><span class="o">.</span><span class="n">Container</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">container_name</span><span class="p">)</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="s2">&quot;RUNNING&quot;</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">409</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Container already in the Running state&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span>
+            <span class="n">status_code</span><span class="o">=</span><span class="mi">409</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Container already in the Running state&quot;</span>
+        <span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">lxc</span><span class="o">.</span><span class="n">Container</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">container_name</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">():</span>
         <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">409</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Container failed to start&quot;</span><span class="p">)</span>
@@ -263,13 +265,15 @@ body .il { color: #F78C6C } /* Literal.Number.Integer.Long */
     <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Starting </span><span class="si">{</span><span class="n">container_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
 
 
-<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/stop/&quot;</span><span class="p">)</span>  <span class="c1"># todo</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/stop/&quot;</span><span class="p">)</span>  
 <span class="k">async</span> <span class="k">def</span> <span class="nf">stop_container</span><span class="p">(</span><span class="n">container_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">container_name</span> <span class="ow">in</span> <span class="n">lxc</span><span class="o">.</span><span class="n">list_containers</span><span class="p">():</span>
         <span class="n">raise_409_existbool</span><span class="p">(</span><span class="n">container_name</span><span class="o">=</span><span class="n">container_name</span><span class="p">,</span> <span class="n">exists</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">lxc</span><span class="o">.</span><span class="n">Container</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">container_name</span><span class="p">)</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="s2">&quot;STOPPED&quot;</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">409</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Container is already in the Stopped state&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span>
+            <span class="n">status_code</span><span class="o">=</span><span class="mi">409</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Container is already in the Stopped state&quot;</span>
+        <span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">lxc</span><span class="o">.</span><span class="n">Container</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">container_name</span><span class="p">)</span><span class="o">.</span><span class="n">stop</span><span class="p">():</span>
         <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">409</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Container failed to stop&quot;</span><span class="p">)</span>
@@ -277,7 +281,7 @@ body .il { color: #F78C6C } /* Literal.Number.Integer.Long */
     <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Stopping </span><span class="si">{</span><span class="n">container_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
 
 
-<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/destroy/&quot;</span><span class="p">)</span>  <span class="c1"># todo</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/destroy/&quot;</span><span class="p">)</span>  
 <span class="k">async</span> <span class="k">def</span> <span class="nf">destroy_container</span><span class="p">(</span><span class="n">container_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">container_name</span> <span class="ow">in</span> <span class="n">lxc</span><span class="o">.</span><span class="n">list_containers</span><span class="p">():</span>
         <span class="n">raise_409_existbool</span><span class="p">(</span><span class="n">container_name</span><span class="o">=</span><span class="n">container_name</span><span class="p">,</span> <span class="n">exists</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -310,6 +314,7 @@ body .il { color: #F78C6C } /* Literal.Number.Integer.Long */
     <span class="k">if</span> <span class="ow">not</span> <span class="n">container_name</span> <span class="ow">in</span> <span class="n">lxc</span><span class="o">.</span><span class="n">list_containers</span><span class="p">():</span>
         <span class="n">raise_409_existbool</span><span class="p">(</span><span class="n">container_name</span><span class="o">=</span><span class="n">container_name</span><span class="p">,</span> <span class="n">exists</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">pass</span>
+
 
 <span class="c1"># HTML landing page</span>
 <span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">response_class</span><span class="o">=</span><span class="n">HTMLResponse</span><span class="p">)</span>  <span class="c1"># template landing page</span>
