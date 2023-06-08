@@ -33,7 +33,7 @@ jobs:
           script: |
             cd ${{ secrets.TARGET_DIR }}
             source venv/bin/activate
-            pip3 install -r requirement.txt 
+            pip3 install -r requirements.txt 
             bash s.sh
             pkill -9 uvicorn 
             sleep 3
