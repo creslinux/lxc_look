@@ -1,12 +1,38 @@
 <html>
   <head>
-    <title>Files</title>
+    <title>lxc fastapi src code:</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
   </head>
-  <body>
-    <h1>Files:</h1>
-    <ul>
+  <body >
+    <h1 class="mb-2 mt-0 text-3xl font-medium leading-tight text-primary border-2 border-dotted">First version:</h1>
+    <ul class="list-disc" >
       {% for file in files %}
-      <li><a href="{{file}}">{{file}}</a></li>
+        {% if 'version_1' in file %}
+          <li>
+            <a   href="{{file}}" class="inline-flex items-center border-2 border-hidden space-x-2.5 px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              - {{file}}
+            </a>
+          </li>
+          </p>
+        {% endif %}
+      {% endfor %}
+    </ul>
+    <p class="mb-2 mt-0 text-3xl font-medium leading-tight text-primary border-2 border-dotted break-after-column">  
+      Refactored Code
+    </p>
+      <p class="mb-2 mt-0 space-x-2.5 text-1xl font-medium leading-tight text-primary border-spacing-3">
+      Classified - Grouping functionality areas and declarations 
+    </p>
+    <ul class="list-disc">
+      {% for file in files %}
+        {% if 'version_1' not in file %}
+        <ul space-y-1.5>
+            <a href="{{file}}" class="inline-flex items-center border-2 border-hidden space-x-2.5 space-y-1.5 px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              - {{file}}
+            <br>
+            </a>
+        </ul>
+        {% endif %}
       {% endfor %}
     </ul>
   </body>

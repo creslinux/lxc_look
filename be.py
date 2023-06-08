@@ -225,3 +225,18 @@ async def html_frontpage(request: Request):
             "data": _ret,
         },
     )
+
+@app.get("/src/", response_class=HTMLResponse)
+async def list_files(request: Request):
+
+    # SRC code explorer for interview
+    files = [f.name for f in Path("static").iterdir() if f.is_file()]
+    file_paths = sorted([f"/static/{f}" for f in files])
+
+    return TEMPLATES.TemplateResponse(
+        "list_files.html", 
+        {
+            "request": request, 
+            "files": file_paths
+        }
+    )
