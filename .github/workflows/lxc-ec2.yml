@@ -41,3 +41,4 @@ jobs:
             sleep 3
             nohup ${{ secrets.TARGET_DIR }}/venv/bin/uvicorn be:app --host 0.0.0.0 --port 8000 &
             nohup ${{ secrets.TARGET_DIR }}/venv/bin/uvicorn be_app:app --host 0.0.0.0 --port 8090 &
+            date
