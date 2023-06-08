@@ -63,6 +63,12 @@ class AppController:
             # take an optimistic record, prevent conflicting builds
             # build as a background task
             containers.update({container.name: container})
+
+            # Enum obj to str 
+            container.dist = container.dist.name
+            container.release = container.release.name
+            container.arch = container.arch.name
+
             background_tasks.add_task(use_case.build_container, ctr=container)
             return {"message": "Sent for build", "container": container}
 
