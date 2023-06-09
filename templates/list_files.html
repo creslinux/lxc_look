@@ -25,7 +25,24 @@
     </p>
     <ul class="list-disc">
       {% for file in files %}
-        {% if 'version_1' not in file %}
+        {% if 'version_1' not in file and 'github_actions_pipeline' not in file %}
+        <ul space-y-1.5>
+            <a href="{{file}}" class="inline-flex items-center border-2 border-hidden space-x-2.5 space-y-1.5 px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              - {{file}}
+            <br>
+            </a>
+        </ul>
+        {% endif %}
+      {% endfor %}
+    </ul>
+    <p class="mb-2 mt-0 text-3xl font-medium leading-tight text-primary border-2 border-dotted break-after-column">  
+     CD / Automation  </p>
+      <p class="mb-2 mt-0 space-x-2.5 text-1xl font-medium leading-tight text-primary border-spacing-3">
+       Github Actions Pipeline - auto deploy in to EC2 on commit to Dev branch
+    </p>
+    <ul class="list-disc">
+      {% for file in files %}
+        {% if 'github_actions_pipeline' in file %}
         <ul space-y-1.5>
             <a href="{{file}}" class="inline-flex items-center border-2 border-hidden space-x-2.5 space-y-1.5 px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
               - {{file}}
