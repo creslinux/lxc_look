@@ -16,17 +16,12 @@ from platform_models.models import (
 from starlette.routing import Mount, Route
 
 
-
 class AppController:
     def __init__(self, app: FastAPI, use_case: UseCase):
-
         # Return list of lxc contianers, and their state
         @app.get("/list_containers/")
         async def list_containers():
             _ret = use_case.list_containers()
-            from pprint import pprint
-
-            pprint(_ret)
             return {f"message": "Returning all containers on host", "data": _ret}
 
         # Query more detail on a named lxc instance
@@ -64,7 +59,7 @@ class AppController:
             # build as a background task
             containers.update({container.name: container})
 
-            # Enum obj to str 
+            # Enum obj to str
             container.dist = container.dist.name
             container.release = container.release.name
             container.arch = container.arch.name
@@ -105,11 +100,7 @@ class AppController:
             files_paths = use_case.list_files(request=request)
 
             return TEMPLATES.TemplateResponse(
-                "list_files.html", 
-                {
-                    "request": request, 
-                    "files": files_paths
-                }
+                "list_files.html", {"request": request, "files": files_paths}
             )
 
         # TODO - skeletons to complete

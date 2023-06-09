@@ -105,9 +105,6 @@ class PlatformUseCase(UseCase):
 
     def build_container(self, ctr: Container):
         # Create LXC container in backkground
-
-        
-
         try:
             _c = lxc.Container(ctr.name)
             _c.create(
