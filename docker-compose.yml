@@ -1,0 +1,13 @@
+version: '3.3'
+services:
+    curity:
+        container_name: curity
+        environment:
+            - PASSWORD=bigbadbear
+            - SERVICE_ROLE=admin
+            - ADMIN=true
+        ports:
+            - '6789:6789'
+            - '6749:6749'
+            - '8443:8443'
+        image: 'curity.azurecr.io/curity/idsvr:8.2.1'

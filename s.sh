@@ -5,3 +5,4 @@ venv/bin/pygmentize -f html -O style=monokai -O full -o static/refactor_platform
 venv/bin/pygmentize -f html -O style=monokai -O full -o static/refactor_app_usecases_src.html platform_usecases/app_usecases.py
 venv/bin/pygmentize -f html -O style=monokai -O full -o static/refactor_models_src.html platform_models/models.py
 venv/bin/pygmentize -f html -O style=monokai -O full -o static/github_actions_pipeline.html .github/workflows/lxc-ec2.yml
+venv/bin/pygmentize -f html -O style=monokai -O full -o static/oauth2_openid.html platform_usecases/app_oauth.py

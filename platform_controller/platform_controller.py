@@ -1,23 +1,47 @@
 import lxc
 
-from typing import Annotated
-from fastapi import FastAPI, Body, BackgroundTasks, Request
+from typing import Annotated, List
+from fastapi import FastAPI, Body, BackgroundTasks, Request, Depends, HTTPException
 from fastapi.responses import HTMLResponse
+from fastapi.security import OAuth2PasswordBearer
+
+# from okta_jwt.jwt import validate_token
 
 from platform_usecases.app_usecases import UseCase
+from platform_usecases.app_oauth import SecureCase
 from platform_models.models import (
     TEMPLATES,
     Container,
     ToInstall,
     Network,
+    Item,
     containers,
 )
 
 from starlette.routing import Mount, Route
 
+# Define the auth scheme and access token URL
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
 
 class AppController:
-    def __init__(self, app: FastAPI, use_case: UseCase):
+    def __init__(
+        self, app: FastAPI, use_case: UseCase, secure_case: SecureCase, config):
+        
+        # Get auth token endpoint
+        @app.post("/token")
+        async def login(request: Request):
+            _ret = secure_case.retrieve_token(
+                authorization=request.headers["authorization"],
+                issuer=config("OKTA_ISSUER"),
+                scope="items",
+            )
+            return _ret
+
+        # Validate OpenID JWT token for the scope
+        async def validate(token: str = Depends(oauth2_scheme)):
+            return secure_case.token_validator(token=token, config=config)
+
         # Return list of lxc contianers, and their state
         @app.get("/list_containers/")
         async def list_containers():
@@ -25,8 +49,9 @@ class AppController:
             return {f"message": "Returning all containers on host", "data": _ret}
 
         # Query more detail on a named lxc instance
+        # Has OAth2 validation JWT check
         @app.get("/get-container/{container_name}/")
-        async def get_container(container_name: str):
+        async def get_container(container_name: str, valid: bool = Depends(validate)):
             _ret = use_case.get_container(container_name=container_name)
             return {f"message": " Success get {container_name}", "data": _ret}
 
@@ -77,8 +102,10 @@ class AppController:
             use_case.stop_container(container_name=container_name)
             return {"message": f"Stopping {container_name}", "data": True}
 
-        @app.post("/destroy/")
-        async def destroy_container(container_name: str):
+        @app.post("/destroy/")  # Add OAUTH2 validate protection
+        async def destroy_container(
+            container_name: str, valid: bool = Depends(validate)
+        ):
             use_case.destroy_container(container_name=container_name)
             return {"message": f"Destroyed {container_name}", "data": True}
 

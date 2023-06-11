@@ -37,6 +37,9 @@ class Network(BaseModel):
     ip_addr: IPv4Address
     default_gw: IPv4Address
 
+class Item(BaseModel):
+    id: int
+    name: str
 
 # hack - this is psuedo persist, for dev use and single node only
 containers: dict[str, Container] = {}
