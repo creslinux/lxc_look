@@ -104,8 +104,7 @@ class AppController:
 
         @app.post("/destroy/")  # Add OAUTH2 validate protection
         async def destroy_container(
-            container_name: str, valid: bool = Depends(validate)
-        ):
+            container_name: str):
             use_case.destroy_container(container_name=container_name)
             return {"message": f"Destroyed {container_name}", "data": True}
 
