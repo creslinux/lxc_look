@@ -27,9 +27,9 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 class AppController:
     def __init__(
         self, app: FastAPI, use_case: UseCase, secure_case: SecureCase, config):
-        
+
         # Get auth token endpoint
-        @app.post("/token")
+        @app.post("/token", include_in_schema=False)
         async def login(request: Request):
             _ret = secure_case.retrieve_token(
                 authorization=request.headers["authorization"],
@@ -39,7 +39,7 @@ class AppController:
             return _ret
 
         # Validate OpenID JWT token for the scope
-        async def validate(token: str = Depends(oauth2_scheme)):
+        async def validate(token: str = Depends(oauth2_scheme), include_in_schema=False):
             return secure_case.token_validator(token=token, config=config)
 
         # Return list of lxc contianers, and their state
