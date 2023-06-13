@@ -19,11 +19,3 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl='token')
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 AppController(app, PlatformUseCase(), PlatformSecureCase(), config=config)
-
-# def startup(use_case: UseCase = PlatformUseCase():)
-    # app = FastAPI()
-    # AppController(app, use_case)
-    # return app
-
-# if __name__ == "__main__":
-#     uvicorn.run(startup(), host="0.0.0.0", port=8090)
