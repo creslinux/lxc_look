@@ -5,34 +5,18 @@ from fastapi.security import OAuth2PasswordBearer
 
 import httpx
 
-# Define the auth scheme and access token URL
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+# # Define the auth scheme and access token URL
+# oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 class SecureCase:
     @abstractmethod
     def retrieve_token(self):
         pass
 
-    @abstractmethod
-    def token_validator(self):
-        pass
-
+    # TODO  - Move Token Validator into here
 
 class PlatformSecureCase(SecureCase):
     # class for platform.sh interview - security AuthZ/AuthN OAUTH2 helpers
-
-    def token_validator(token, config):
-        # local validation of OpenID JWD token for the scope
-        try:
-            res = validate_token(
-                access_token=token,
-                issuer=config("OKTA_ISSUER"),
-                audience=config("OKTA_AUDIENCE"),
-                client_ids=config("OKTA_CLIENT_ID"),
-            )
-            return bool(res)
-        except Exception:
-            raise HTTPException(status_code=403)
 
     def retrieve_token(self, authorization, issuer, scope="items"):
         # Call the Okta API to get an access token

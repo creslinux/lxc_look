@@ -4,6 +4,7 @@ from typing import Annotated, List
 from fastapi import FastAPI, Body, BackgroundTasks, Request, Depends, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.security import OAuth2PasswordBearer
+from okta_jwt.jwt import validate_token
 
 # from okta_jwt.jwt import validate_token
 
@@ -26,8 +27,8 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 class AppController:
     def __init__(
-        self, app: FastAPI, use_case: UseCase, secure_case: SecureCase, config):
-
+        self, app: FastAPI, use_case: UseCase, secure_case: SecureCase, config
+    ):
         # Get auth token endpoint
         @app.post("/token", include_in_schema=False)
         async def login(request: Request):
@@ -36,11 +37,28 @@ class AppController:
                 issuer=config("OKTA_ISSUER"),
                 scope="items",
             )
+            print("retrieved token is", _ret)
             return _ret
+
+        #---
+        def token_validator(token, config):
+        # local validation of OpenID JWD token for the scope
+            try:
+                res = validate_token(
+                    access_token=token,
+                    issuer=config("OKTA_ISSUER"),
+                    audience=config("OKTA_AUDIENCE"),
+                    client_ids=config("OKTA_CLIENT_ID"),
+                )
+                return bool(res)
+            except Exception:
+                raise HTTPException(status_code=403)
 
         # Validate OpenID JWT token for the scope
         async def validate(token: str = Depends(oauth2_scheme), include_in_schema=False):
-            return secure_case.token_validator(token=token, config=config)
+            # return True
+            print("token is ", token)
+            return token_validator(token=token, config=config)
 
         # Return list of lxc contianers, and their state
         @app.get("/list_containers/")
@@ -102,9 +120,8 @@ class AppController:
             use_case.stop_container(container_name=container_name)
             return {"message": f"Stopping {container_name}", "data": True}
 
-        @app.post("/destroy/")  # Add OAUTH2 validate protection
-        async def destroy_container(
-            container_name: str):
+        @app.post("/destroy/")
+        async def destroy_container(container_name: str, valid: bool = Depends(validate)):
             use_case.destroy_container(container_name=container_name)
             return {"message": f"Destroyed {container_name}", "data": True}
 
