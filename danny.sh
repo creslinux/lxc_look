@@ -19,4 +19,4 @@ done
 
 # rm logs
 find . -name "*.log" -exec rm -f {} \;
-
+echo "done"
