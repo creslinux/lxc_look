@@ -4,3 +4,4 @@ pygmentize -f html -O style=monokai -O full -o static/refactor_app_src.html be_a
 pygmentize -f html -O style=monokai -O full -o static/refactor_platform_controller.html platform_controller/platform_controller.py
 pygmentize -f html -O style=monokai -O full -o static/refactor_app_usecases_src.html platform_usecases/app_usecases.py
 pygmentize -f html -O style=monokai -O full -o static/refactor_models_src.html platform_models/models.py
+echo ""
